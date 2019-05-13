@@ -6,6 +6,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,12 +45,23 @@ public class TwitterProducer {
 				client.stop();
 			}
 			if(msg != null) {
-				logger.info(msg);
-				kafkaProducer.send(new ProducerRecord<String, String>("twitter-tweets", msg));
+				logger.info(extractText(msg));
+				kafkaProducer.send(new ProducerRecord<String, String>("twitter-tweets", extractText(msg)));
 			}
 		}
 		
 		logger.info("End of application");
+	}
+	
+	public String extractText(String message) {
+		JSONParser parser = new JSONParser();
+		JSONObject jsonObject = null;
+		try {
+			jsonObject = (JSONObject) parser.parse(message);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return (String) jsonObject.get("text");
 	}
 
 }
