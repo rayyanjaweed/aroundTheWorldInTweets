@@ -24,9 +24,10 @@ hs_err_pid*
 
 # Eclipse files
 *.metadata
-.settings/
-.project
+*.settings/
+*.project
+*.classpath
 
 # Target
 .target
-target/
+*/target/
