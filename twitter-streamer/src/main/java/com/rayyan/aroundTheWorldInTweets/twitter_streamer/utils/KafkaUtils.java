@@ -23,16 +23,6 @@ public class KafkaUtils {
 			logger.error("Exception while trying to read kafka properties", e);
 		}
 		
-		/*String consumerKey = properties.getProperty("consumerKey");
-		String consumerSecret = properties.getProperty("consumerSecret");
-		String token = properties.getProperty("token");
-		String secret = properties.getProperty("secret");
-		
-		Properties properties = new Properties();
-		properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-		properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-		properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());*/
-		
 		KafkaProducer<String, String> kafkaProducer = new KafkaProducer<String, String>(properties);
 		
 		return kafkaProducer;
